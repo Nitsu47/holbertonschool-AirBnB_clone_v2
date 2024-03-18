@@ -8,5 +8,5 @@ IDENTIFIED BY 'hbnb_dev_pwd';
 -- Privileges
 GRANT ALL PRIVILEGES ON hbnb_dev_db.*
 TO 'hbnb_dev'@'localhost';
-GRANT SELECT PRIVILEGE ON performance_schema.*
+GRANT SELECT ON performance_schema.*
 TO 'hbnb_dev'@'localhost';
