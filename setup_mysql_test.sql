@@ -1,36 +1,6 @@
--- Test module to verify the correct operation of 'setup_mysql_dev' module.
--- Verify the correct creation of database, tables, users and privileges.
+-- script that prepares a MySQL server for the project.
 
--- Use of performance_schema, where performance and internal activities
--- are stored, like user privileges, databases, tables, etc.
-
--- Verification of database creation.
-SELECT COUNT(*)
-FROM information_schema.schemata
-WHERE schema_name = 'hbnb_dev_db';
-
--- Verification of user creation.
-SELECT COUNT(*)
-FROM mysql.user
-WHERE user = 'hbnb_dev'
-AND localhost = 'localhost';
-
---Verification of user password.
-SELECT COUNT(*) autenticathion_string
-FROM mysql.user
-WHERE user = hbnb_dev
-AND localhost = 'localhost';
-
--- Verification of user privileges in main database.
-SELECT COUNT(*)
-from information_schema.schema_privileges
-WHERE grantee = "'hbnb_dev'@'localhost'"
-AND table_schema = 'hbnb_dev_db'
-AND privilege_type = 'ALL PRIVILEGES';
-
--- Verification of user privileges in performance_schema.
-SELECT COUNT(*)
-from information_schema.schema_privileges
-WHERE grantee = "'hbnb_dev'@'localhost'"
-AND table_schema = 'performance_schema'
-AND privilege_type = 'SELECT';
+CREATE USER IF NOT EXISTS "hbnb_test"@"localhost" IDENTIFIED BY "hbnb_test_pwd";
+CREATE DATABASE IF NOT EXISTS hbnb_test_db;
+GRANT ALL PRIVILEGES ON hbnb_test_db.* TO "hbnb_test"@"localhost";
+GRANT SELECT ON performance_schema.* TO "hbnb_test"@"localhost";
