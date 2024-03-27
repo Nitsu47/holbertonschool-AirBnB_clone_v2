@@ -129,12 +129,8 @@ class HBNBCommand(cmd.Cmd):
         elif args.split()[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
-        split_args = args.split(maxsplit=1)
-        if len(split_args) < 2:
-            return
     
-        class_name, params = split_args
+        class_name, params = args.split(maxsplit=1)
     
         param_dict = {}
         for param in params.split():
