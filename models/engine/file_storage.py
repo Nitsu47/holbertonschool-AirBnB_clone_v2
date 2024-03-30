@@ -29,7 +29,7 @@ class FileStorage:
             temp = {}
             for key, val in self.__objects.items():
                 temp[key] = val.to_dict()
-            json.dump(temp, f, default=str)
+            json.dump(temp, f, default=str, indent=4)
 
     def reload(self):
         """Loads storage dictionary from file"""
