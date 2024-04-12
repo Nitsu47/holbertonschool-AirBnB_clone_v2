@@ -32,8 +32,9 @@ def p_text(text="is cool"):
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def number(n):
-        """Displays 'n is a number' only if it is"""
-        return "{} is a number".format(n)
+    """Displays 'n is a number' only if it is"""
+    return "{} is a number".format(n)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
