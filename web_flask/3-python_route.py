@@ -20,7 +20,7 @@ def c_text(text):
     return "C " + text.replace("_", " ")
 
 
-@app.route("/python/<text>", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False, defaults={"text": "is cool"})
 def p_text(text="is cool"):
     return "Python " + text.replace("_", " ")
 
