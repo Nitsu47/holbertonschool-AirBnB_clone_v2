@@ -17,14 +17,14 @@ class State(BaseModel):
                           cascade='all, delete, delete-orphan')
 
 
-if (getenv("HBNB_TYPE_STORAGE") != "db" or
-        getenv("HBNB_TYPE_STORAGE") == "db"):
-    @property
-    def cities(self):
-        """Returns a list of City objects linked to state from storage"""
-        city_list = []
-        from models import storage
-        for city in storage.all(City).values():
-            if city.state_id == self.id:
-                city_list.append(city)
-        return city_list
+    if (getenv("HBNB_TYPE_STORAGE") != "db" or
+            getenv("HBNB_TYPE_STORAGE") == "db"):
+        @property
+        def cities(self):
+            """Returns a list of City objects linked to state from storage"""
+            city_list = []
+            from models import storage
+            for city in storage.all(City).values():
+                if city.state_id == self.id:
+                    city_list.append(city)
+            return city_list
