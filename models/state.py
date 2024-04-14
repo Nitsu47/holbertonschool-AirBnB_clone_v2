@@ -9,21 +9,22 @@ from models.city import City
 
 class State(BaseModel):
     """ State class """
-    __tablename__ = 'states'
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        __tablename__ = 'states'
 
-    name = Column(String(128), nullable=False)
+        name = Column(String(128), nullable=False)
 
-    cities = relationship("City", backref="state",
-                          cascade='all, delete, delete-orphan')
+        cities = relationship("City", backref="state",
+                              cascade='all, delete, delete-orphan')
+    else:
+        name = ""
 
-    if (getenv("HBNB_TYPE_STORAGE") != "db" or
-            getenv("HBNB_TYPE_STORAGE") == "db"):
-        @property
-        def cities(self):
-            """Returns a list of City objects linked to state from storage"""
-            city_list = []
-            from models import storage
-            for city in storage.all(City).values():
-                if city.state_id == self.id:
-                    city_list.append(city)
-            return city_list
+    @property
+    def cities(self):
+        """Returns a list of City objects linked to state from storage"""
+        city_list = []
+        from models import storage
+        for city in storage.all(City).values():
+            if city.state_id == self.id:
+                city_list.append(city)
+        return city_list
