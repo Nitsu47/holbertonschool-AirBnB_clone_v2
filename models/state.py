@@ -4,7 +4,6 @@ from models.base_model import BaseModel
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import getenv
-from models.city import City
 
 
 class State(BaseModel):
@@ -22,8 +21,9 @@ class State(BaseModel):
         @property
         def cities(self):
             """Returns a list of City objects linked to state from storage"""
-            city_list = []
+            from models.city import City
             from models import storage
+            city_list = []
             for city in storage.all(City).values():
                 if city.state_id == self.id:
                     city_list.append(city)
