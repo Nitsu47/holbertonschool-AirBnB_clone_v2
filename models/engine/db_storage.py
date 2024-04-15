@@ -37,16 +37,20 @@ class DBStorage():
 
     def all(self, cls=None):
         """Returns a dictionary with all objects in the database."""
+        classes = {'State': State, 'City': City, 'User': User, 'Place': Place,
+                   'Review': Review, 'Amenity': Amenity}
+        obj_dic = {}
         if cls is None:
-            objects = self.__session.query().all()
+            for cls_name, cls_type in classes.items():
+                data = self.__session.query(cls_type).all()
+                for inst in data:
+                    key = '{}.{}'.format(cls_name, inst.id)
+                    obj_dic[key] = inst
         else:
-            objects = self.__session.query(cls).all()
-
-        obj_dict = {}
-        for obj in objects:
-            obj_dict[f'{obj.__class__.__name__}.{obj.id}'] = obj
-
-        return obj_dict
+            for inst in self.__session.query(cls).all():
+                key = '{}.{}'.format(cls.__name__, inst.id)
+                obj_dic[key] = inst
+        return obj_dic
 
     def new(self, obj):
         """adds objects to the current database session"""
