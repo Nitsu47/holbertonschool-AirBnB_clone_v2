@@ -16,7 +16,7 @@ def close_session():
 def state_html():
     """Displat a html page with the states list"""
     from models.state import State
-    states = storage.all(State).values()
+    states = list(storage.all(State).values())
     ordered_states = sorted(states, key=lambda x: x.name)
     return render_template("7-states_list.html", ordered_states=ordered_states)
 
